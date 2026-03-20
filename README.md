@@ -6,6 +6,14 @@ A macOS menu bar app + desktop widget that tracks your [Claude Code](https://doc
 ![Flutter](https://img.shields.io/badge/Flutter-3.41+-blue?logo=flutter)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
+## Download
+
+[![Download DMG](https://img.shields.io/badge/Download-DMG-orange?style=for-the-badge&logo=apple)](https://drive.google.com/file/d/1gcRMVgBk5VTTF1AzOyM7fNo7KKSOkb4A/view?usp=drive_link)
+
+> Open the DMG, drag **ClaudeUsageTracker** to Applications, then launch it. Right-click desktop > Edit Widgets > search "Claude" to add the desktop widget.
+
+> **Note:** The desktop widget requires the app to be signed with a matching Apple Developer identity. If the widget doesn't appear, you'll need to build from source with your own signing identity (see [Setup](#setup) below).
+
 ## Features
 
 **Menu Bar App**
@@ -92,9 +100,14 @@ flutter run -d macos
 
 # Production build with widget
 flutter build macos
+
+# Build DMG for distribution
+./scripts/build_dmg.sh
 ```
 
-### 6. Install with widget support
+The DMG will be created at `build/ClaudeUsageTracker.dmg`. Open it and drag the app to Applications.
+
+### 6. Install with widget support (manual)
 
 The desktop widget requires the app to be installed in `/Applications` with proper code signing:
 
