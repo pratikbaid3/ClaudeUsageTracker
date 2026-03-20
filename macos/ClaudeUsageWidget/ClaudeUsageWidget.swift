@@ -12,8 +12,8 @@ struct ClaudeUsageData {
     let totalSessions: Int
     let totalProjects: Int
     let totalMessages: Int
-    let tokensToday: Int
-    let sessionsToday: Int
+    let tokens5h: Int
+    let tokens7d: Int
     let topProjectName: String
     let topProjectTokens: Int
     let rl5hUtil: Double  // -1 = below threshold, 0..1 = percentage
@@ -30,7 +30,7 @@ struct ClaudeUsageProvider: TimelineProvider {
             displayName: "User", email: "user@example.com", plan: "Pro",
             totalTokensIn: 14_500_000, totalTokensOut: 48_000,
             totalSessions: 38, totalProjects: 5, totalMessages: 420,
-            tokensToday: 250_000, sessionsToday: 4,
+            tokens5h: 250_000, tokens7d: 1_200_000,
             topProjectName: "MyProject", topProjectTokens: 8_000_000,
             rl5hUtil: -1, rl5hReset: 0, rl7dUtil: -1, rl7dReset: 0
         ))
@@ -55,8 +55,8 @@ struct ClaudeUsageProvider: TimelineProvider {
             return ClaudeUsageData(
                 displayName: "No data", email: "Launch the menu bar app", plan: "—",
                 totalTokensIn: 0, totalTokensOut: 0, totalSessions: 0,
-                totalProjects: 0, totalMessages: 0, tokensToday: 0,
-                sessionsToday: 0, topProjectName: "—", topProjectTokens: 0,
+                totalProjects: 0, totalMessages: 0, tokens5h: 0,
+                tokens7d: 0, topProjectName: "—", topProjectTokens: 0,
                 rl5hUtil: -1, rl5hReset: 0, rl7dUtil: -1, rl7dReset: 0
             )
         }
@@ -70,8 +70,8 @@ struct ClaudeUsageProvider: TimelineProvider {
             totalSessions: json["totalSessions"] as? Int ?? 0,
             totalProjects: json["totalProjects"] as? Int ?? 0,
             totalMessages: json["totalMessages"] as? Int ?? 0,
-            tokensToday: json["tokensToday"] as? Int ?? 0,
-            sessionsToday: json["sessionsToday"] as? Int ?? 0,
+            tokens5h: json["tokens5h"] as? Int ?? 0,
+            tokens7d: json["tokens7d"] as? Int ?? 0,
             topProjectName: json["topProjectName"] as? String ?? "—",
             topProjectTokens: json["topProjectTokens"] as? Int ?? 0,
             rl5hUtil: json["rl5hUtil"] as? Double ?? -1,
@@ -144,10 +144,10 @@ struct ClaudeWidgetView: View {
             rateLimitRow(label: "Session (5h)", util: d.rl5hUtil, resetAt: d.rl5hReset)
             rateLimitRow(label: "Weekly", util: d.rl7dUtil, resetAt: d.rl7dReset)
 
-            // Today's Stats
+            // Session & Weekly Token Counts
             HStack(spacing: 6) {
-                todayStat(label: "Today", value: d.tokensToday.formatted, sub: "tokens")
-                todayStat(label: "Sessions", value: "\(d.sessionsToday)", sub: "today")
+                todayStat(label: "Session (5h)", value: d.tokens5h.formatted, sub: "tokens")
+                todayStat(label: "This Week", value: d.tokens7d.formatted, sub: "tokens")
             }
 
             // All-time Stats Grid

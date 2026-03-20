@@ -61,12 +61,13 @@ class AppDelegate: FlutterAppDelegate {
       var totalSessions = 0
       var totalProjects = 0
       var totalMessages = 0
-      var tokensToday = 0
-      var sessionsToday = 0
+      var tokens5h = 0
+      var tokens7d = 0
       var projectTokens: [String: Int] = [:]
 
-      let calendar = Calendar.current
-      let startOfToday = calendar.startOfDay(for: Date())
+      let now = Date()
+      let fiveHoursAgo = now.addingTimeInterval(-5 * 3600)
+      let sevenDaysAgo = now.addingTimeInterval(-7 * 86400)
 
       let projectsPath = "\(home)/.claude/projects/"
       if let projectDirs = try? FileManager.default.contentsOfDirectory(atPath: projectsPath) {
@@ -83,7 +84,7 @@ class AppDelegate: FlutterAppDelegate {
             for file in files where file.hasSuffix(".jsonl") {
               hasSession = true
               totalSessions += 1
-              var sessionHasToday = false
+              var sessionHas5h = false
               let filePath = "\(dirPath)/\(file)"
               if let content = try? String(contentsOfFile: filePath, encoding: .utf8) {
                 for line in content.components(separatedBy: "\n") {
@@ -103,17 +104,21 @@ class AppDelegate: FlutterAppDelegate {
                     totalTokensOut += out
                     projTokens += total
 
-                    // Check if this message is from today
+                    // Check time windows
                     if let ts = json["timestamp"] as? String,
-                       let date = ISO8601DateFormatter().date(from: ts.replacingOccurrences(of: "\\.\\d+Z$", with: "Z", options: .regularExpression)),
-                       date >= startOfToday {
-                      tokensToday += total
-                      sessionHasToday = true
+                       let date = ISO8601DateFormatter().date(from: ts.replacingOccurrences(of: "\\.\\d+Z$", with: "Z", options: .regularExpression)) {
+                      if date >= fiveHoursAgo {
+                        tokens5h += total
+                        sessionHas5h = true
+                      }
+                      if date >= sevenDaysAgo {
+                        tokens7d += total
+                      }
                     }
                   }
                 }
               }
-              if sessionHasToday { sessionsToday += 1 }
+              if sessionHas5h { /* counted */ }
             }
           }
           if hasSession {
@@ -131,8 +136,8 @@ class AppDelegate: FlutterAppDelegate {
       widgetData["totalSessions"] = totalSessions
       widgetData["totalProjects"] = totalProjects
       widgetData["totalMessages"] = totalMessages
-      widgetData["tokensToday"] = tokensToday
-      widgetData["sessionsToday"] = sessionsToday
+      widgetData["tokens5h"] = tokens5h
+      widgetData["tokens7d"] = tokens7d
       widgetData["topProjectName"] = topProject?.key ?? "—"
       widgetData["topProjectTokens"] = topProject?.value ?? 0
 
