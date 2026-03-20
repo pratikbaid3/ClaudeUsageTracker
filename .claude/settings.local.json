@@ -47,7 +47,19 @@
       "Bash(xcodebuild -workspace /Users/pratikbaid/Desktop/Work/iOS/ClaudeUsageTracker/macos/Runner.xcworkspace -scheme Runner -configuration Release build)",
       "Bash(pod install:*)",
       "Bash(brew upgrade:*)",
-      "Bash(pkill -f claude_usage_tracker)"
+      "Bash(pkill -f claude_usage_tracker)",
+      "Bash(APP=\"/Users/pratikbaid/Desktop/Work/iOS/ClaudeUsageTracker/build/macos/Build/Products/Release/claude_usage_tracker.app\")",
+      "Bash(IDENTITY=\"Apple Development: Pratik Baid \\(3X386VD677\\)\")",
+      "Bash(__NEW_LINE_efd1950f48eafbe9__ cp:*)",
+      "Bash(codesign --force --sign \"$IDENTITY\" \"/Applications/ClaudeUsageTracker.app/Contents/PlugIns/ClaudeUsageWidgetExtension.appex\")",
+      "Bash(codesign --force --sign \"$IDENTITY\" \"/Applications/ClaudeUsageTracker.app\")",
+      "Bash(__NEW_LINE_c3cf4dd3196c5cb7__ cp:*)",
+      "Bash(/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -f /Applications/ClaudeUsageTracker.app)",
+      "Bash(APP_SRC=\"/Users/pratikbaid/Desktop/Work/iOS/ClaudeUsageTracker/build/macos/Build/Products/Release/claude_usage_tracker.app\")",
+      "Bash(PROJ=\"/Users/pratikbaid/Desktop/Work/iOS/ClaudeUsageTracker/macos\")",
+      "Bash(__NEW_LINE_9fcb4ad29616bb08__ cp:*)",
+      "Bash(__NEW_LINE_9fcb4ad29616bb08__ codesign:*)",
+      "Bash(__NEW_LINE_9fcb4ad29616bb08__ /System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -f /Applications/ClaudeUsageTracker.app)"
     ]
   }
 }

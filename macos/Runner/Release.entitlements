@@ -4,5 +4,9 @@
 <dict>
 	<key>com.apple.security.app-sandbox</key>
 	<false/>
+	<key>com.apple.security.application-groups</key>
+	<array>
+		<string>N6V3K529MB.claudeUsageTracker</string>
+	</array>
 </dict>
 </plist>
