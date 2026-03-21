@@ -8,9 +8,19 @@ A macOS menu bar app + desktop widget that tracks your [Claude Code](https://doc
 
 ## Download
 
-[![Download DMG](https://img.shields.io/badge/Download-DMG-orange?style=for-the-badge&logo=apple)](https://drive.google.com/file/d/1gcRMVgBk5VTTF1AzOyM7fNo7KKSOkb4A/view?usp=drive_link)
+<a href="https://drive.google.com/file/d/1gcRMVgBk5VTTF1AzOyM7fNo7KKSOkb4A/view?usp=drive_link">
+  <img src="https://img.shields.io/badge/%E2%AC%87%EF%B8%8F_Download_DMG-ClaudeUsageTracker-F97316?style=for-the-badge&logo=apple&logoColor=white&labelColor=1a1a1a&scale=2" alt="Download DMG" height="60">
+</a>
 
-> Open the DMG, drag **ClaudeUsageTracker** to Applications, then launch it. Right-click desktop > Edit Widgets > search "Claude" to add the desktop widget.
+### Installation
+
+1. Open the DMG and drag **ClaudeUsageTracker** to Applications
+2. **Important:** Right-click the app > click **"Open"** > click **"Open"** again (macOS Gatekeeper will block it on first launch since the app is not notarized)
+3. Alternatively, run this in Terminal to bypass Gatekeeper:
+   ```bash
+   xattr -cr /Applications/ClaudeUsageTracker.app
+   ```
+4. Right-click desktop > **Edit Widgets** > search **"Claude"** to add the desktop widget
 
 > **Note:** The desktop widget requires the app to be signed with a matching Apple Developer identity. If the widget doesn't appear, you'll need to build from source with your own signing identity (see [Setup](#setup) below).
 
